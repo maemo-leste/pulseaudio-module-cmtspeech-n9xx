@@ -4,7 +4,7 @@ m4_define(PA_MAJOR, [2])
 m4_define(PA_MINOR, [1])
 m4_define(NEMO_MICRO, [3])
 
-AC_INIT([pulseaudio-module-cmtspeech], [PA_MAJOR.PA_MINOR.NEMO_MICRO], [mer-general@lists.merproject.org])
+AC_INIT([pulseaudio-module-cmtspeech-n9xx], [PA_MAJOR.PA_MINOR.NEMO_MICRO], [mer-general@lists.merproject.org])
 AC_CONFIG_HEADER([config.h])
 AM_INIT_AUTOMAKE([foreign -Wall silent-rules])
 AC_CONFIG_MACRO_DIR(m4)
