@@ -1,5 +1,2 @@
-SUBDIRS = common voice music record test mainvolume sidetone parameters stream-restore-nemo
+SUBDIRS = cmtspeech
 
-if HAVE_LIBCMTSPEECHDATA
-SUBDIRS += cmtspeech
-endif

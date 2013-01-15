@@ -35,7 +35,7 @@
 #include "cmtspeech-sink-input.h"
 #include "cmtspeech-connection.h"
 #include "memory.h"
-#include "module-voice-api.h"
+#include <meego/module-voice-api.h>
 
 /**
  * Converts speech frame sideinfo flags from libcmtspeechdata format

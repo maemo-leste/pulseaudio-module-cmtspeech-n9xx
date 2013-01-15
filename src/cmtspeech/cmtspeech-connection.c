@@ -21,8 +21,8 @@
  */
 #include "cmtspeech-connection.h"
 
+#include <meego/module-voice-api.h>
 #include "cmtspeech-mainloop-handler.h"
-#include "module-voice-api.h"
 #include "cmtspeech-sink-input.h"
 #include <pulsecore/rtpoll.h>
 #include <pulsecore/core-rtclock.h>

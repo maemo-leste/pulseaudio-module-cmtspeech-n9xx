@@ -22,7 +22,7 @@
 
 #include "cmtspeech-mainloop-handler.h"
 #include <pulsecore/namereg.h>
-#include "proplist-meego.h"
+#include <meego/proplist-meego.h>
 
 #include "cmtspeech-source-output.h"
 #include "cmtspeech-sink-input.h"

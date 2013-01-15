@@ -27,7 +27,7 @@
 #include <pulsecore/namereg.h>
 
 #include "module-meego-cmtspeech.h"
-#include "module-voice-api.h"
+#include <meego/module-voice-api.h>
 #include "memory.h"
 #include "cmtspeech-source-output.h"
 #include "cmtspeech-connection.h"

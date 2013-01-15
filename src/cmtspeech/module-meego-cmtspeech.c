@@ -26,7 +26,7 @@
 
 #include "module-meego-cmtspeech-symdef.h"
 #include "module-meego-cmtspeech.h"
-#include "module-voice-api.h"
+#include <meego/module-voice-api.h>
 #include "cmtspeech-connection.h"
 #include "cmtspeech-dbus.h"
 #include "cmtspeech-source-output.h"
