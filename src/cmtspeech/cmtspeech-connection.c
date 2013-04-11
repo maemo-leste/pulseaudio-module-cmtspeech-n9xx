@@ -921,13 +921,14 @@ DBusHandlerResult cmtspeech_dbus_filter(DBusConnection *conn, DBusMessage *msg, 
                         if (c->cmtspeech)
                             cmtspeech_state_change_call_status(c->cmtspeech, val == TRUE);
                         pa_mutex_unlock(c->cmtspeech_mutex);
+
+                        return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
                     }
                 }
             }
         }
-    } else
         pa_log_error("Received %s with invalid parameters", OFONO_DBUS_VOICECALL_CHANGE_SIG);
-
+    }
 
     return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 }
