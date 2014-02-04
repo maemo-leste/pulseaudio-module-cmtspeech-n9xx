@@ -34,7 +34,7 @@
 #include "module-meego-cmtspeech.h"
 #include "cmtspeech-sink-input.h"
 #include "cmtspeech-connection.h"
-#include "memory.h"
+#include <meego/memory.h>
 #include <meego/module-voice-api.h>
 
 /**

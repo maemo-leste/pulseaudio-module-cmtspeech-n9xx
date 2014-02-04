@@ -1,7 +1,7 @@
 AC_PREREQ(2.60)
 
-m4_define(PA_MAJOR, [2])
-m4_define(PA_MINOR, [1])
+m4_define(PA_MAJOR, [4])
+m4_define(PA_MINOR, [0])
 m4_define(NEMO_MICRO, [3])
 
 AC_INIT([pulseaudio-module-cmtspeech-n9xx], [PA_MAJOR.PA_MINOR.NEMO_MICRO], [mer-general@lists.merproject.org])
@@ -164,13 +164,13 @@ AS_IF([test "$pulseaudio_cv__Bool" = "yes"], [
 #LT_INIT([dlopen win32-dll disable-static])
 AC_PROG_LIBTOOL
 
-PKG_CHECK_MODULES([PULSEAUDIO], [libpulse >= 2.1 pulsecore >= 2.1 ])
+PKG_CHECK_MODULES([PULSEAUDIO], [libpulse >= 4.0 pulsecore >= 4.0 ])
 AC_SUBST(PULSEAUDIO_CFLAGS)
 AC_SUBST(PULSEAUDIO_LIBS)
 
 pulseaudiodir=`pkg-config --variable=prefix pulsecore`
 
-PKG_CHECK_MODULES([MODULE_COMMON], [libmeego-common >= 2.1.2])
+PKG_CHECK_MODULES([MODULE_COMMON], [libmeego-common >= 4.0.2])
 AC_SUBST(MODULE_COMMON_CFLAGS)
 AC_SUBST(MODULE_COMMON_LIBS)
 

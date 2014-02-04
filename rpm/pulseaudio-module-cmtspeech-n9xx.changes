@@ -1,0 +1,3 @@
+* Wed Jan 16 2013 Juho Hamalainen <juho.hamalainen@tieto.com> - 2.1.3
+- New package.
+- Separate cmtpseech module to this package from pulseaudio-modules-nemo.
