@@ -83,7 +83,7 @@ static void cmtspeech_dl_sideinfo_drop(struct userdata *u, int length) {
         length -= u->dl_frame_size;
     }
 
-    u->continuous_dl_stream = FALSE;
+    u->continuous_dl_stream = false;
 }
 
 static void cmtspeech_dl_sideinfo_forward(struct userdata *u) {
@@ -103,7 +103,7 @@ static void cmtspeech_dl_sideinfo_forward(struct userdata *u) {
     else if (!u->continuous_dl_stream)
         spc_flags |= VOICE_SIDEINFO_FLAG_BAD;
 
-    u->continuous_dl_stream = TRUE;
+    u->continuous_dl_stream = true;
 
     pa_queue_push(u->voice_sideinfoq, PA_UINT_TO_PTR(spc_flags));
 }
@@ -118,7 +118,7 @@ static void cmtspeech_dl_sideinfo_bogus(struct userdata *u) {
 
     pa_queue_push(u->voice_sideinfoq, PA_UINT_TO_PTR(spc_flags));
 
-    u->continuous_dl_stream = FALSE;
+    u->continuous_dl_stream = false;
 }
 
 static void cmtspeech_dl_sideinfo_flush(struct userdata *u) {
@@ -146,7 +146,7 @@ static int cmtspeech_sink_input_pop_cb(pa_sink_input *i, size_t length, pa_memch
 
     if (u->cmt_connection.dl_frame_queue) {
         cmtspeech_dl_buf_t *buf;
-        while ((buf = pa_asyncq_pop(u->cmt_connection.dl_frame_queue, FALSE))) {
+        while ((buf = pa_asyncq_pop(u->cmt_connection.dl_frame_queue, false))) {
             pa_memchunk cmtchunk;
             if (cmtspeech_buffer_to_memchunk(u, buf, &cmtchunk) < 0)
                 continue;
@@ -258,7 +258,7 @@ static void cmtspeech_sink_input_reset_dl_stream(struct userdata *u) {
     /* Flush all DL buffers */
     pa_memblockq_flush_read(u->dl_memblockq);
     cmtspeech_dl_sideinfo_flush(u);
-    while ((buf = pa_asyncq_pop(u->cmt_connection.dl_frame_queue, FALSE))) {
+    while ((buf = pa_asyncq_pop(u->cmt_connection.dl_frame_queue, false))) {
         pa_memchunk cmtchunk;
         if (0 == cmtspeech_buffer_to_memchunk(u, buf, &cmtchunk))
             pa_memblock_unref(cmtchunk.memblock);
@@ -358,16 +358,16 @@ static void cmtspeech_sink_input_moving_cb(pa_sink_input *i, pa_sink *dest){
 }
 
 /* Called from main context */
-static pa_bool_t cmtspeech_sink_input_may_move_to_cb(pa_sink_input *i, pa_sink *dest) {
+static bool cmtspeech_sink_input_may_move_to_cb(pa_sink_input *i, pa_sink *dest) {
     struct userdata *u;
 
     pa_sink_input_assert_ref(i);
     pa_assert_se(u = i->userdata);
 
     if (cmtspeech_check_sink_api(dest))
-        return FALSE;
+        return false;
 
-    return TRUE;
+    return true;
 }
 
 int cmtspeech_create_sink_input(struct userdata *u) {

@@ -116,7 +116,7 @@ static void cmtspeech_source_output_moving_cb(pa_source_output *o, pa_source *de
 }
 
 /* Called from main context */
-static pa_bool_t cmtspeech_source_output_may_move_to_cb(pa_source_output *o, pa_source *dest) {
+static bool cmtspeech_source_output_may_move_to_cb(pa_source_output *o, pa_source *dest) {
   struct userdata *u;
   ENTER();
 
@@ -124,9 +124,9 @@ static pa_bool_t cmtspeech_source_output_may_move_to_cb(pa_source_output *o, pa_
   pa_assert_se(u = o->userdata);
 
   if (cmtspeech_check_source_api(dest))
-      return FALSE;
+      return false;
 
-  return TRUE;
+  return true;
 }
 
 int cmtspeech_create_source_output(struct userdata *u)

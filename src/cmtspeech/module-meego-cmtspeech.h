@@ -72,7 +72,7 @@ struct userdata {
     /* Access only from sink IO-thread */
     pa_queue *local_sideinfoq;
     pa_queue *voice_sideinfoq;
-    pa_bool_t continuous_dl_stream;
+    bool continuous_dl_stream;
     pa_memblockq *dl_memblockq;
 
     pa_msgobject *mainloop_handler;
@@ -97,13 +97,13 @@ struct userdata {
 
 	pa_asyncq *dl_frame_queue;
 
-	pa_bool_t call_ul;			/* set according to DBus signals */
-	pa_bool_t call_dl;			/* set according to DBus signals */
-	pa_bool_t call_emergency;		/* set according to DBus signals */
-	pa_bool_t first_dl_frame_received;	/* internal state */
-	pa_bool_t record_running;		/* internal state */
-	pa_bool_t playback_running;		/* internal state */
-	pa_bool_t streams_created;		/* internal state */
+	bool call_ul;                   /* set according to DBus signals */
+	bool call_dl;                   /* set according to DBus signals */
+	bool call_emergency;            /* set according to DBus signals */
+	bool first_dl_frame_received;   /* internal state */
+	bool record_running;            /* internal state */
+	bool playback_running;          /* internal state */
+	bool streams_created;           /* internal state */
     } cmt_connection;
 
     pa_atomic_t cmtspeech_server_status;

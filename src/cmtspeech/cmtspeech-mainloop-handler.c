@@ -65,7 +65,7 @@ static int mainloop_handler_process_msg(pa_msgobject *o, int code, void *userdat
         if (u->source_output->state == PA_SOURCE_OUTPUT_RUNNING)
             pa_log_warn("UL_CONNECT: source output is already running");
         else
-            pa_source_output_cork(u->source_output, FALSE);
+            pa_source_output_cork(u->source_output, false);
         return 0;
 
     case CMTSPEECH_MAINLOOP_HANDLER_CMT_UL_DISCONNECT:
@@ -73,7 +73,7 @@ static int mainloop_handler_process_msg(pa_msgobject *o, int code, void *userdat
         if (u->source_output->state == PA_SOURCE_OUTPUT_CORKED)
             pa_log_warn("UL_DISCONNECT: source output is already corked");
         else
-            pa_source_output_cork(u->source_output, TRUE);
+            pa_source_output_cork(u->source_output, true);
         return 0;
 
     case CMTSPEECH_MAINLOOP_HANDLER_CMT_DL_CONNECT:
@@ -81,7 +81,7 @@ static int mainloop_handler_process_msg(pa_msgobject *o, int code, void *userdat
         if (u->sink_input->state == PA_SINK_INPUT_RUNNING)
             pa_log_warn("DL_CONNECT: sink input is already running");
         else
-            pa_sink_input_cork(u->sink_input, FALSE);
+            pa_sink_input_cork(u->sink_input, false);
         return 0;
 
     case CMTSPEECH_MAINLOOP_HANDLER_CMT_DL_DISCONNECT:
@@ -89,7 +89,7 @@ static int mainloop_handler_process_msg(pa_msgobject *o, int code, void *userdat
         if (u->sink_input->state == PA_SINK_INPUT_CORKED)
             pa_log_warn("DL_DISCONNECT: sink input is already corked");
         else
-            pa_sink_input_cork(u->sink_input, TRUE);
+            pa_sink_input_cork(u->sink_input, true);
         return 0;
 
    default:
