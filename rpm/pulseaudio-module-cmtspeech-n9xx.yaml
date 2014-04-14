@@ -1,6 +1,6 @@
 Name: pulseaudio-module-cmtspeech-n9xx
 Summary: Cmtspeech module for PulseAudio on N9xx
-Version: 4.0.3
+Version: 5.0.4
 Release: 1
 Group: Multimedia/PulseAudio
 License: LGPLv2.1+
@@ -15,7 +15,7 @@ PkgBR:
     - libtool-ltdl-devel
 PkgConfigBR:
     - dbus-1
-    - pulsecore >= 4.0
-    - libmeego-common >= 4.0.3
+    - pulsecore >= 5.0
+    - libmeego-common >= 5.0.15
 Configure: reconfigure
 Builder: make

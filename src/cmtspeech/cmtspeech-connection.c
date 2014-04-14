@@ -155,7 +155,7 @@ int cmtspeech_buffer_to_memchunk(struct userdata *u, cmtspeech_buffer_t *buf, pa
         return -1;
     }
 
-    chunk->memblock = pa_memblock_new_user(u->core->mempool, buf->data, (size_t) buf->size, cmtspeech_free_cb, TRUE);
+    chunk->memblock = pa_memblock_new_user(u->core->mempool, buf->data, (size_t) buf->size, cmtspeech_free_cb, true);
     chunk->index = CMTSPEECH_DATA_HEADER_LEN;
     chunk->length = buf->count - CMTSPEECH_DATA_HEADER_LEN;
 
@@ -168,7 +168,7 @@ int push_cmtspeech_buffer_to_dl_queue(struct userdata *u, cmtspeech_dl_buf_t *bu
     pa_assert_fp(u);
     pa_assert_fp(buf);
 
-    if (pa_asyncq_push(u->cmt_connection.dl_frame_queue, (void *)buf, FALSE)) {
+    if (pa_asyncq_push(u->cmt_connection.dl_frame_queue, (void *)buf, false)) {
         int ret;
         struct cmtspeech_connection *c = &u->cmt_connection;
 
@@ -218,15 +218,15 @@ static void reset_call_stream_states(struct userdata *u) {
         pa_log_warn("DL/UL streams existed at reset, closing");
         pa_asyncmsgq_post(pa_thread_mq_get()->outq, u->mainloop_handler,
                           CMTSPEECH_MAINLOOP_HANDLER_DELETE_STREAMS, NULL, 0, NULL, NULL);
-        c->streams_created = FALSE;
+        c->streams_created = false;
     }
     if (c->playback_running) {
         pa_log_warn("DL stream was open, closing");
-        c->playback_running = FALSE;
+        c->playback_running = false;
     }
     if (c->record_running) {
         pa_log_warn("UL stream was open, closing");
-        c->record_running = FALSE;
+        c->record_running = false;
         ul_frame_count = 0;
     }
 }
@@ -287,7 +287,7 @@ static int mainloop_cmtspeech(struct userdata *u) {
                     pa_asyncmsgq_post(pa_thread_mq_get()->outq, u->mainloop_handler,
                                       CMTSPEECH_MAINLOOP_HANDLER_CREATE_STREAMS, NULL, 0, NULL, NULL);
 
-                    c->streams_created = TRUE;
+                    c->streams_created = true;
                 } else if (cmtevent.prev_state == CMTSPEECH_STATE_CONNECTED &&
                            cmtevent.state == CMTSPEECH_STATE_ACTIVE_DL &&
                            cmtevent.msg_type == CMTSPEECH_SPEECH_CONFIG_REQ) {
@@ -334,10 +334,10 @@ static int mainloop_cmtspeech(struct userdata *u) {
                                   cmtevent.msg.speech_config_req.speech_data_stream);
                     pa_asyncmsgq_post(pa_thread_mq_get()->outq, u->mainloop_handler,
                                       CMTSPEECH_MAINLOOP_HANDLER_CMT_DL_DISCONNECT, NULL, 0, NULL, NULL);
-                    c->playback_running = FALSE;
+                    c->playback_running = false;
                     pa_asyncmsgq_post(pa_thread_mq_get()->outq, u->mainloop_handler,
                                       CMTSPEECH_MAINLOOP_HANDLER_CMT_UL_DISCONNECT, NULL, 0, NULL, NULL);
-                    c->record_running = FALSE;
+                    c->record_running = false;
                     ul_frame_count = 0;
 
                 } else if (cmtevent.prev_state == CMTSPEECH_STATE_CONNECTED &&
@@ -345,7 +345,7 @@ static int mainloop_cmtspeech(struct userdata *u) {
                     pa_log_debug("call terminated.");
                     pa_asyncmsgq_post(pa_thread_mq_get()->outq, u->mainloop_handler,
                                       CMTSPEECH_MAINLOOP_HANDLER_DELETE_STREAMS, NULL, 0, NULL, NULL);
-                    c->streams_created = FALSE;
+                    c->streams_created = false;
                     reset_call_stream_states(u);
 
                 } else if (cmtevent.msg_type == CMTSPEECH_EVENT_RESET) {
@@ -506,7 +506,7 @@ static void pollfd_update(struct cmtspeech_connection *c) {
 static void close_cmtspeech_on_error(struct userdata *u)
 {
     struct cmtspeech_connection *c = &u->cmt_connection;
-    pa_bool_t was_active = c->streams_created;
+    bool was_active = c->streams_created;
 
     pa_assert(u);
 
@@ -529,7 +529,7 @@ static void close_cmtspeech_on_error(struct userdata *u)
     }
 
     pa_mutex_lock(c->cmtspeech_mutex);
-    if (was_active == TRUE)
+    if (was_active == true)
         pa_log_error("closing modem instance when interface still active");
     if (cmtspeech_close(c->cmtspeech))
         pa_log_error("cmtspeech_close() failed");
@@ -565,7 +565,7 @@ static void thread_func(void *udata) {
 
         pollfd_update(c);
 
-        if (0 > (ret = pa_rtpoll_run(c->rtpoll, TRUE))) {
+        if (0 > (ret = pa_rtpoll_run(c->rtpoll, true))) {
             pa_log_error("running rtpoll failed (%d) (fd %d)", ret, cmtspeech_descriptor(c->cmtspeech));
             close_cmtspeech_on_error(u);
         }
@@ -645,7 +645,7 @@ int cmtspeech_connection_init(struct userdata *u)
     c->dl_frame_queue = pa_asyncq_new(4);
 
     c->cmtspeech = NULL;
-    c->cmtspeech_mutex = pa_mutex_new(FALSE, FALSE);
+    c->cmtspeech_mutex = pa_mutex_new(false, false);
 
     cmtspeech_init();
     cmtspeech_trace_toggle(CMTSPEECH_TRACE_ERROR, true);
@@ -655,14 +655,14 @@ int cmtspeech_connection_init(struct userdata *u)
     cmtspeech_trace_toggle(CMTSPEECH_TRACE_DEBUG, true);
     cmtspeech_set_trace_handler(priv_cmtspeech_trace_handler_f);
 
-    c->call_ul = FALSE;
-    c->call_dl = FALSE;
-    c->call_emergency = FALSE;
+    c->call_ul = false;
+    c->call_dl = false;
+    c->call_emergency = false;
 
-    c->first_dl_frame_received = FALSE;
-    c->record_running = FALSE;
-    c->playback_running = FALSE;
-    c->streams_created = FALSE;
+    c->first_dl_frame_received = false;
+    c->record_running = false;
+    c->playback_running = false;
+    c->streams_created = false;
 
     if (!(c->thread = pa_thread_new("cmtspeech", thread_func, u))) {
         pa_log_error("Failed to create thread.");
@@ -809,17 +809,17 @@ DBusHandlerResult cmtspeech_dbus_filter(DBusConnection *conn, DBusMessage *msg, 
                               DBUS_TYPE_BOOLEAN, &emergencyflag,
                               DBUS_TYPE_INVALID);
 
-        if (dbus_error_is_set(&dbus_error) != TRUE) {
+        if (dbus_error_is_set(&dbus_error) != true) {
             pa_log_debug("received AudioConnect with params %d, %d, %d", ulflag, dlflag, emergencyflag);
 
-            c->call_ul = (ulflag == TRUE ? TRUE : FALSE);
-            c->call_dl = (dlflag == TRUE ? TRUE : FALSE);
-            c->call_emergency = (emergencyflag == TRUE ? TRUE : FALSE);
+            c->call_ul = (ulflag == true ? true : false);
+            c->call_dl = (dlflag == true ? true : false);
+            c->call_emergency = (emergencyflag == true ? true : false);
 
             /* note: very rarely taken code path */
             pa_mutex_lock(c->cmtspeech_mutex);
             if (c->cmtspeech)
-                cmtspeech_state_change_call_connect(c->cmtspeech, dlflag == TRUE);
+                cmtspeech_state_change_call_connect(c->cmtspeech, dlflag == true);
             pa_mutex_unlock(c->cmtspeech_mutex);
 
         } else
@@ -830,18 +830,18 @@ DBusHandlerResult cmtspeech_dbus_filter(DBusConnection *conn, DBusMessage *msg, 
     } else if (dbus_message_is_signal(msg, CMTSPEECH_DBUS_CSCALL_STATUS_IF, CMTSPEECH_DBUS_CSCALL_STATUS_SIG)) {
         pa_log_debug("Received ServerStatus");
 
-        if (dbus_message_iter_init(msg, &args) == TRUE) {
+        if (dbus_message_iter_init(msg, &args) == true) {
             type = dbus_message_iter_get_arg_type(&args);
             dbus_bool_t val;
             if (type == DBUS_TYPE_BOOLEAN) {
                 dbus_message_iter_get_basic(&args, &val);
 
-                pa_log_debug("Set ServerStatus to %d.", val == TRUE);
+                pa_log_debug("Set ServerStatus to %d.", val == true);
 
                 /* note: very rarely taken code path */
                 pa_mutex_lock(c->cmtspeech_mutex);
                 if (c->cmtspeech) {
-                    cmtspeech_state_change_call_status(c->cmtspeech, val == TRUE);
+                    cmtspeech_state_change_call_status(c->cmtspeech, val == true);
                     if (val) {
                         /* Call in progress, pause cleanup timer. */
                         pa_atomic_store(&u->cmtspeech_server_status, 1);
@@ -876,50 +876,50 @@ DBusHandlerResult cmtspeech_dbus_filter(DBusConnection *conn, DBusMessage *msg, 
                               DBUS_TYPE_STRING, &modemstate,
                               DBUS_TYPE_INVALID);
 
-        if (dbus_error_is_set(&dbus_error) != TRUE) {
+        if (dbus_error_is_set(&dbus_error) != true) {
             pa_log_debug("modem state change: %s", modemstate);
         }
     } else if (dbus_message_is_signal(msg, OFONO_DBUS_VOICECALL_IF, OFONO_DBUS_VOICECALL_CHANGE_SIG)) {
         pa_log_debug("Received voicecall change");
-        if (dbus_message_iter_init(msg, &args) == TRUE) {
+        if (dbus_message_iter_init(msg, &args) == true) {
             if ((type = dbus_message_iter_get_arg_type(&args)) == DBUS_TYPE_STRING) {
                 const char* callstr;
                 dbus_message_iter_get_basic(&args,&callstr);
                 if (strcmp(callstr,"State") == 0) {
                     pa_log_debug("Received voicecall state change");
-                    if (dbus_message_iter_next (&args) == TRUE) {
+                    if (dbus_message_iter_next (&args) == true) {
                         DBusMessageIter callstate;
                         const char* callstatestr;
-                        dbus_bool_t val = FALSE;
+                        dbus_bool_t val = false;
                         dbus_message_iter_recurse(&args,&callstate);
                         dbus_message_iter_get_basic(&callstate,&callstatestr);
                         if (strcmp(callstatestr,OFONO_DBUS_VOICECALL_ACTIVE) == 0) {
-                            pa_log_debug("Call active");val = TRUE;
+                            pa_log_debug("Call active");val = true;
                         } else if (strcmp(callstatestr,OFONO_DBUS_VOICECALL_ALERTING) == 0) {
                             pa_log_debug("Call alerting");
-                            val = TRUE;
+                            val = true;
                         } else if (strcmp(callstatestr,OFONO_DBUS_VOICECALL_HELD) == 0) {
                             pa_log_debug("Call held");
-                            val = TRUE;
+                            val = true;
                         } else if (strcmp(callstatestr,OFONO_DBUS_VOICECALL_WAITING) == 0) {
                             pa_log_debug("Call waiting");
-                            val = TRUE;
+                            val = true;
                         } else if (strcmp(callstatestr,OFONO_DBUS_VOICECALL_INCOMING) == 0) {
                             pa_log_debug("Incoming call");
-                            val = FALSE;
+                            val = false;
                         } else if (strcmp(callstatestr,OFONO_DBUS_VOICECALL_DIALING) == 0) {
                             pa_log_debug("Dialing out");
-                            val = FALSE;
+                            val = false;
                         } else if (strcmp(callstatestr,OFONO_DBUS_VOICECALL_DISCONNECTED) == 0) {
                             pa_log_debug("Call disconnected");
-                            val = FALSE;
+                            val = false;
                         }
 
-                        pa_log_debug("Set ServerStatus to %d.", val == TRUE);
+                        pa_log_debug("Set ServerStatus to %d.", val == true);
                         /* note: very rarely taken code path */
                         pa_mutex_lock(c->cmtspeech_mutex);
                         if (c->cmtspeech)
-                            cmtspeech_state_change_call_status(c->cmtspeech, val == TRUE);
+                            cmtspeech_state_change_call_status(c->cmtspeech, val == true);
                         pa_mutex_unlock(c->cmtspeech_mutex);
 
                         return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;

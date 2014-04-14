@@ -84,7 +84,7 @@ static void cmtspeech_unload_defer_cb(pa_mainloop_api *ma, pa_defer_event *de, v
     pa_module *m;
     pa_assert_se(m = (pa_module *) userdata);
 
-    pa_module_unload(m->core, m, TRUE);
+    pa_module_unload(m->core, m, true);
 }
 
 void cmtspeech_trigger_unload(struct userdata *u) {
@@ -155,7 +155,7 @@ int pa__init(pa_module*m) {
 
     u->local_sideinfoq = pa_queue_new();
     u->voice_sideinfoq = NULL;
-    u->continuous_dl_stream = FALSE,
+    u->continuous_dl_stream = false,
     u->dl_memblockq =
 	pa_memblockq_new("cmtspeech dl_memblockq", 0, 4*u->dl_frame_size, 0, &u->ss, 0, 0, 0, NULL);
 

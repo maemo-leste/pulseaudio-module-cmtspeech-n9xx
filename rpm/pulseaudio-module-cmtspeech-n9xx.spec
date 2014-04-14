@@ -6,11 +6,11 @@
 Name:       pulseaudio-module-cmtspeech-n9xx
 
 # >> macros
-%define pulseversion 4.0
+%define pulseversion 5.0
 # << macros
 
 Summary:    Cmtspeech module for PulseAudio on N9xx
-Version:    4.0.3
+Version:    5.0.4
 Release:    1
 Group:      Multimedia/PulseAudio
 License:    LGPLv2.1+
@@ -19,8 +19,8 @@ URL:        https://github.com/nemomobile/pulseaudio-module-cmtspeech-n9xx
 Source0:    %{name}-%{version}.tar.gz
 Source100:  pulseaudio-module-cmtspeech-n9xx.yaml
 BuildRequires:  pkgconfig(dbus-1)
-BuildRequires:  pkgconfig(pulsecore) >= 4.0
-BuildRequires:  pkgconfig(libmeego-common) >= 4.0.3
+BuildRequires:  pkgconfig(pulsecore) >= 5.0
+BuildRequires:  pkgconfig(libmeego-common) >= 5.0.15
 BuildRequires:  libcmtspeechdata-devel
 BuildRequires:  libtool-ltdl-devel
 
