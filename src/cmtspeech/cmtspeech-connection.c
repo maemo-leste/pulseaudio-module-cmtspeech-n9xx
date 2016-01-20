@@ -155,7 +155,7 @@ int cmtspeech_buffer_to_memchunk(struct userdata *u, cmtspeech_buffer_t *buf, pa
         return -1;
     }
 
-    chunk->memblock = pa_memblock_new_user(u->core->mempool, buf->data, (size_t) buf->size, cmtspeech_free_cb, true);
+    chunk->memblock = pa_memblock_new_user(u->core->mempool, buf->data, (size_t) buf->size, cmtspeech_free_cb, buf->data, true);
     chunk->index = CMTSPEECH_DATA_HEADER_LEN;
     chunk->length = buf->count - CMTSPEECH_DATA_HEADER_LEN;
 
