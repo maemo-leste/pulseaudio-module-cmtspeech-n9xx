@@ -1,6 +1,6 @@
 AC_PREREQ(2.60)
 
-m4_define(PA_MAJOR, [5])
+m4_define(PA_MAJOR, [6])
 m4_define(PA_MINOR, [0])
 m4_define(NEMO_MICRO, [4])
 
