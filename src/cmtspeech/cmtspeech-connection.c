@@ -155,7 +155,7 @@ int cmtspeech_buffer_to_memchunk(struct userdata *u, cmtspeech_buffer_t *buf, pa
         return -1;
     }
 
-    chunk->memblock = pa_memblock_new_user(u->core->mempool, buf->data, (size_t) buf->size, cmtspeech_free_cb, true);
+    chunk->memblock = pa_memblock_new_user(u->core->mempool, buf->data, (size_t) buf->size, cmtspeech_free_cb, buf->data, true);
     chunk->index = CMTSPEECH_DATA_HEADER_LEN;
     chunk->length = buf->count - CMTSPEECH_DATA_HEADER_LEN;
 
@@ -565,7 +565,7 @@ static void thread_func(void *udata) {
 
         pollfd_update(c);
 
-        if (0 > (ret = pa_rtpoll_run(c->rtpoll, true))) {
+        if (0 > (ret = pa_rtpoll_run(c->rtpoll))) {
             pa_log_error("running rtpoll failed (%d) (fd %d)", ret, cmtspeech_descriptor(c->cmtspeech));
             close_cmtspeech_on_error(u);
         }
