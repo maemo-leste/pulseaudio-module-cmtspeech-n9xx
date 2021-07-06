@@ -1,0 +1,6 @@
+pulseaudio-module-cmtspeech-n9xx (12.0.0) unstable; urgency=medium
+
+  * Initial import
+  * Ported pa_module_unload to new API
+
+ -- Merlijn Wajer <merlijn@wizzup.org>  Tue, 06 Jul 2021 22:08:50 +0200
