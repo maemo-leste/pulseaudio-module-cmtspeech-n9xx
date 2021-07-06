@@ -84,7 +84,7 @@ static void cmtspeech_unload_defer_cb(pa_mainloop_api *ma, pa_defer_event *de, v
     pa_module *m;
     pa_assert_se(m = (pa_module *) userdata);
 
-    pa_module_unload(m->core, m, true);
+    pa_module_unload(m, true);
 }
 
 void cmtspeech_trigger_unload(struct userdata *u) {
