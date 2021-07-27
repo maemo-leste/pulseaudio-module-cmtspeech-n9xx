@@ -1,7 +1,7 @@
 AC_PREREQ(2.60)
 
-m4_define(PA_MAJOR, [6])
-m4_define(PA_MINOR, [0])
+m4_define(pa_majorminor, `pkg-config libpulse --modversion`)
+AC_SUBST(PA_MAJORMINOR, pa_majorminor)
 m4_define(NEMO_MICRO, [4])
 
 AC_INIT([pulseaudio-module-cmtspeech-n9xx], [PA_MAJOR.PA_MINOR.NEMO_MICRO], [mer-general@lists.merproject.org])

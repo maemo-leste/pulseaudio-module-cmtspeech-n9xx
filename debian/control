@@ -10,8 +10,8 @@ Build-Depends: debhelper (>= 10),
 	pkg-config,
 	libdbus-1-dev,
 	libmeego-common-dev,
-	libcmtspeechdata-dev
-# TODO: pulsecore
+	libcmtspeechdata-dev,
+	pulsecore-dev,
 Standards-Version: 4.3.0
 
 Package: pulseaudio-module-cmtspeech-n9xx
